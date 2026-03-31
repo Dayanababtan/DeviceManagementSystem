@@ -6,6 +6,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(); 
 
+builder.Services.AddSingleton<SequenceService>();
 builder.Services.AddSingleton<UserService>();
 builder.Services.AddSingleton<DeviceService>();
 

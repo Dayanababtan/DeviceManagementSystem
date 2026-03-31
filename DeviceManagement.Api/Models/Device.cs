@@ -15,9 +15,11 @@ public class Device
     public string Name { get; set; } = string.Empty;
 
     [Required]
+    public int DeviceID { get; set; }
+
     public string Manufacturer { get; set; } = string.Empty;
 
-    public string Type { get; set; } = string.Empty; // e.g., Phone, Tablet, Laptop
+    public string Type { get; set; } = string.Empty;
     
     public string OS { get; set; } = string.Empty;
     
@@ -29,5 +31,5 @@ public class Device
 
     public string Description { get; set; } = string.Empty;
 
-    public string? UserId { get; set; } 
+    public int? UserId { get; set; } 
 }

@@ -38,6 +38,10 @@ public class ApiIntegrationTests : IClassFixture<WebApplicationFactory<Program>>
         var newDevice = new Device { Name = "Test iPhone", Manufacturer = "Apple", Type = "Phone", RAMAmount = "8GB" };
         var response = await _client.PostAsJsonAsync("/api/devices", newDevice);
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
+
+        var created = await response.Content.ReadFromJsonAsync<Device>();
+        Assert.NotNull(created);
+        Assert.True(created!.DeviceID > 0, "DeviceID should be auto-assigned and > 0");
     }
 
     [Fact]
@@ -85,6 +89,10 @@ public class ApiIntegrationTests : IClassFixture<WebApplicationFactory<Program>>
         var newUser = new User { Name = "Test User", Role = "Admin", Location = "Cluj" };
         var response = await _client.PostAsJsonAsync("/api/users", newUser);
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
+
+        var created = await response.Content.ReadFromJsonAsync<User>();
+        Assert.NotNull(created);
+        Assert.True(created!.UserId > 0, "UserId should be auto-assigned and > 0");
     }
 
     [Fact]

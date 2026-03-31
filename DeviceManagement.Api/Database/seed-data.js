@@ -2,6 +2,7 @@ db = db.getSiblingDB('DeviceManagementDb');
 
 const mobileDevices = [
     {
+        DeviceID: 1,
         Name: "iPhone 15 Pro",
         Manufacturer: "Apple",
         Type: "Phone",
@@ -10,9 +11,10 @@ const mobileDevices = [
         Processor: "A17 Pro",
         RAMAmount: "8GB",
         Description: "Corporate executive device",
-        UserId: null
+        UserId: 2,
     },
     {
+        DeviceID: 2,
         Name: "Galaxy S24 Ultra",
         Manufacturer: "Samsung",
         Type: "Phone",
@@ -21,9 +23,10 @@ const mobileDevices = [
         Processor: "Snapdragon 8 Gen 3",
         RAMAmount: "12GB",
         Description: "Testing device for Android builds",
-        UserId: null
+        UserId: 1,
     },
     {
+        DeviceID: 3,
         Name: "iPad Pro 12.9",
         Manufacturer: "Apple",
         Type: "Tablet",
@@ -32,9 +35,10 @@ const mobileDevices = [
         Processor: "M2",
         RAMAmount: "16GB",
         Description: "Design team tablet",
-        UserId: null
+        UserId: 2,
     },
     {
+        DeviceID: 4,
         Name: "Pixel Tablet",
         Manufacturer: "Google",
         Type: "Tablet",
@@ -43,22 +47,26 @@ const mobileDevices = [
         Processor: "Tensor G2",
         RAMAmount: "8GB",
         Description: "Standard issue office tablet",
-        UserId: null
+        UserId: 3,
     }
 ];
 
 var users = [
     {
+        UserId: 1,
         Name: "Alice Johnson",
         Role: "Admin",
-        Location: "New York"
+        Location: "New York",
+
     },
     {
+        UserId: 2,
         Name: "Bob Smith",
         Role: "Developer",
-        Location: "London"
+        Location: "London",
     },
     {
+        UserId: 3,
         Name: "Charlie Davis",
         Role: "Manager",
         Location: "Remote"
@@ -78,3 +86,6 @@ if (db.Users.countDocuments({}) === 0) {
 } else {
     print('Users collection already has data. Skipping seed to prevent duplicates.');
 }
+
+db.Counters.updateOne({ Id: "userid" }, { $set: { Id: "userid", Value: 3 } }, { upsert: true });
+db.Counters.updateOne({ Id: "deviceid" }, { $set: { Id: "deviceid", Value: 4 } }, { upsert: true });

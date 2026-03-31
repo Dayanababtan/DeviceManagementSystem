@@ -10,12 +10,15 @@ public class User
     [BsonRepresentation(BsonType.ObjectId)]
     public string? Id { get; set; }
 
+    [Required]
+    public int UserId { get; set; }
+
     [Required(ErrorMessage = "User name is required")]
     public string Name { get; set; } = string.Empty;
 
     [Required]
-    public string Role { get; set; } = string.Empty; // e.g., Admin, Developer, Manager
+    public string Role { get; set; } = string.Empty; 
 
     [Required]
-    public string Location { get; set; } = string.Empty; // e.g., New York, London, Remote
+    public string Location { get; set; } = string.Empty;
 }
