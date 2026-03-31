@@ -1,0 +1,52 @@
+<div style="max-width: 500px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px;">
+  <h2>{{ isEditMode ? 'Update' : 'Create' }} Device</h2>
+
+  <form [formGroup]="deviceForm" (ngSubmit)="onSubmit()">
+    <div style="margin-bottom: 15px;">
+      <label style="display: block;">Device name:</label>
+      <input type="text" formControlname="name" style="width: 100%; padding: 8px;">
+      <small *ngIf="deviceForm.get('name')?.invalid && deviceForm.get('name')?.touched" style="color: red;">
+        name is required.
+      </small>
+    </div>
+
+    <div style="margin-bottom: 15px;">
+      <label style="display: block;">manufacturer:</label>
+      <input type="text" formControlName="manufacturer" style="width: 100%; padding: 8px;">
+    </div>
+
+    <div style="margin-bottom: 15px;">
+      <label style="display: block;">type:</label>
+      <select formControlName="type" style="width: 100%; padding: 8px;">
+        <option value="Smartphone">Smartphone</option>
+        <option value="Tablet">Tablet</option>
+        <option value="Laptop">Laptop</option>
+      </select>
+    </div>
+
+    <div style="margin-bottom: 15px;">
+      <label style="display: block;">RAM Amount:</label>
+      <input type="text" formControlName="ramAmount" style="width: 100%; padding: 8px;">
+    </div>
+
+    <div style="margin-bottom: 15px;">
+      <label style="display: block;">Assign to User (Owner):</label>
+      <select formControlName="userId" style="width: 100%; padding: 8px;">
+        <option [value]="null" disabled>-- Select a User --</option>
+        <option *ngFor="let user of users" [value]="user.userId">
+          {{ user.name }}
+        </option>
+      </select>
+      <small *ngIf="deviceForm.get('userId')?.invalid && deviceForm.get('userId')?.touched" style="color: red;">
+        Every device needs a user!
+      </small>
+    </div>
+
+    <div style="display: flex; gap: 10px;">
+      <button type="submit" [disabled]="deviceForm.invalid" style="padding: 10px 20px; cursor: pointer;">
+        {{ isEditMode ? 'Update' : 'Save' }} Device
+      </button>
+      <button type="button" routerLink="/" style="padding: 10px 20px;">Cancel</button>
+    </div>
+  </form>
+</div>

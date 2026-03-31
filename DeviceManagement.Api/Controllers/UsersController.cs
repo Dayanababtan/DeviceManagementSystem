@@ -16,7 +16,7 @@ public class UsersController : ControllerBase
     public async Task<List<User>> Get() => await _userService.GetAsync();
 
     [HttpGet("{id:length(24)}")]
-    public async Task<ActionResult<User>> Get(string id)
+    public async Task<ActionResult<User>> Get(int id)
     {
         var user = await _userService.GetAsync(id);
         if (user is null) return NotFound();
@@ -27,21 +27,21 @@ public class UsersController : ControllerBase
     public async Task<IActionResult> Post(User newUser)
     {
         await _userService.CreateAsync(newUser);
-        return CreatedAtAction(nameof(Get), new { id = newUser.Id }, newUser);
+        return CreatedAtAction(nameof(Get), new { id = newUser.userId }, newUser);
     }
 
     [HttpPut("{id:length(24)}")]
-    public async Task<IActionResult> Update(string id, User updatedUser)
+    public async Task<IActionResult> Update(int id, User updatedUser)
     {
         var user = await _userService.GetAsync(id);
         if (user is null) return NotFound();
-        updatedUser.Id = user.Id;
+        updatedUser.userId = user.userId;
         await _userService.UpdateAsync(id, updatedUser);
         return NoContent();
     }
 
     [HttpDelete("{id:length(24)}")]
-    public async Task<IActionResult> Delete(string id)
+    public async Task<IActionResult> Delete(int id)
     {
         var user = await _userService.GetAsync(id);
         if (user is null) return NotFound();

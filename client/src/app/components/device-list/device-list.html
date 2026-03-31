@@ -1,0 +1,27 @@
+<div class="container">
+  <h2>All Devices</h2>
+  <button routerLink="/add">Add New Device</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Device name</th>
+        <th>User (Owner)</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let dev of devicesWithUsers">
+        <td>{{ dev.name }}</td>
+        <td>{{ dev.username }}</td>
+        <td>
+          <button [routerLink]="['/details', dev.deviceId]">Details</button>
+          
+          <button [routerLink]="['/edit', dev.deviceId]">Edit</button>
+          
+          <button (click)="deleteDevice(dev.deviceId)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

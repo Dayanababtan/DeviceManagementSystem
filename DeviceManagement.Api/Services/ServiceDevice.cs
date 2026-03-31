@@ -19,19 +19,19 @@ public class DeviceService
     public async Task<List<Device>> GetAsync() => 
         await _devicesCollection.Find(_ => true).ToListAsync();
 
-    public async Task<Device?> GetAsync(string id) => 
-        await _devicesCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+    public async Task<Device?> GetAsync(int id) => 
+        await _devicesCollection.Find(x => x.deviceId == id).FirstOrDefaultAsync();
 
     public async Task<Device> CreateAsync(Device device)
     {
-        device.DeviceID = await _sequence.GetNextSequenceAsync("deviceid");
+        device.deviceId = await _sequence.GetNextSequenceAsync("deviceId");
         await _devicesCollection.InsertOneAsync(device);
         return device;
     }
 
-    public async Task UpdateAsync(string id, Device device) => 
-        await _devicesCollection.ReplaceOneAsync(x => x.Id == id, device);
+    public async Task UpdateAsync(int id, Device device) => 
+        await _devicesCollection.ReplaceOneAsync(x => x.deviceId == id, device);
 
-    public async Task RemoveAsync(string id) => 
-        await _devicesCollection.DeleteOneAsync(x => x.Id == id);
+    public async Task RemoveAsync(int id) => 
+        await _devicesCollection.DeleteOneAsync(x => x.deviceId == id);
 }

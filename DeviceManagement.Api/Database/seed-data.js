@@ -2,74 +2,74 @@ db = db.getSiblingDB('DeviceManagementDb');
 
 const mobileDevices = [
     {
-        DeviceID: 1,
-        Name: "iPhone 15 Pro",
-        Manufacturer: "Apple",
-        Type: "Phone",
-        OS: "iOS",
-        OSVersion: "17.4",
-        Processor: "A17 Pro",
-        RAMAmount: "8GB",
-        Description: "Corporate executive device",
-        UserId: 2,
+        deviceId: 1,
+        name: "iPhone 15 Pro",
+        manufacturer: "Apple",
+        type: "Phone",
+        os: "iOS",
+        osVersion: "17.4",
+        processor: "A17 Pro",
+        ramAmount: "8GB",
+        description: "Corporate executive device",
+        userId: 2,
     },
     {
-        DeviceID: 2,
-        Name: "Galaxy S24 Ultra",
-        Manufacturer: "Samsung",
-        Type: "Phone",
-        OS: "Android",
-        OSVersion: "14.0",
-        Processor: "Snapdragon 8 Gen 3",
-        RAMAmount: "12GB",
-        Description: "Testing device for Android builds",
-        UserId: 1,
+        deviceId: 2,
+        name: "Galaxy S24 Ultra",
+        manufacturer: "Samsung",
+        type: "Phone",
+        os: "Android",
+        osVersion: "14.0",
+        processor: "Snapdragon 8 Gen 3",
+        ramAmount: "12GB",
+        description: "Testing device for Android builds",
+        userId: 1,
     },
     {
-        DeviceID: 3,
-        Name: "iPad Pro 12.9",
-        Manufacturer: "Apple",
-        Type: "Tablet",
-        OS: "iPadOS",
-        OSVersion: "17.2",
-        Processor: "M2",
-        RAMAmount: "16GB",
-        Description: "Design team tablet",
-        UserId: 2,
+        deviceId: 3,
+        name: "iPad Pro 12.9",
+        manufacturer: "Apple",
+        type: "Tablet",
+        os: "iPadOS",
+        osVersion: "17.2",
+        processor: "M2",
+        ramAmount: "16GB",
+        description: "Design team tablet",
+        userId: 2,
     },
     {
-        DeviceID: 4,
-        Name: "Pixel Tablet",
-        Manufacturer: "Google",
-        Type: "Tablet",
-        OS: "Android",
-        OSVersion: "14.0",
-        Processor: "Tensor G2",
-        RAMAmount: "8GB",
-        Description: "Standard issue office tablet",
-        UserId: 3,
+        deviceId: 4,
+        name: "Pixel Tablet",
+        manufacturer: "Google",
+        type: "Tablet",
+        os: "Android",
+        osVersion: "14.0",
+        processor: "Tensor G2",
+        ramAmount: "8GB",
+        description: "Standard issue office tablet",
+        userId: 3,
     }
 ];
 
 var users = [
     {
-        UserId: 1,
-        Name: "Alice Johnson",
-        Role: "Admin",
-        Location: "New York",
+        userId: 1,
+        name: "Alice Johnson",
+        role: "Admin",
+        location: "New York",
 
     },
     {
-        UserId: 2,
-        Name: "Bob Smith",
-        Role: "Developer",
-        Location: "London",
+        userId: 2,
+        name: "Bob Smith",
+        role: "Developer",
+        location: "London",
     },
     {
-        UserId: 3,
-        Name: "Charlie Davis",
-        Role: "Manager",
-        Location: "Remote"
+        userId: 3,
+        name: "Charlie Davis",
+        role: "Manager",
+        location: "Remote"
     }
 ];
 
@@ -87,5 +87,5 @@ if (db.Users.countDocuments({}) === 0) {
     print('Users collection already has data. Skipping seed to prevent duplicates.');
 }
 
-db.Counters.updateOne({ Id: "userid" }, { $set: { Id: "userid", Value: 3 } }, { upsert: true });
-db.Counters.updateOne({ Id: "deviceid" }, { $set: { Id: "deviceid", Value: 4 } }, { upsert: true });
+db.Counters.updateOne({ Id: "userId" }, { $set: { Id: "userId", Value: 3 } }, { upsert: true });
+db.Counters.updateOne({ Id: "deviceId" }, { $set: { Id: "deviceId", Value: 4 } }, { upsert: true });

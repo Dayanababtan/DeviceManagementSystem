@@ -35,13 +35,13 @@ public class ApiIntegrationTests : IClassFixture<WebApplicationFactory<Program>>
     [Fact]
     public async Task Device_3_Post_CreatesNewDevice()
     {
-        var newDevice = new Device { Name = "Test iPhone", Manufacturer = "Apple", Type = "Phone", RAMAmount = "8GB" };
+        var newDevice = new Device { name = "Test iPhone", manufacturer = "Apple", type = "Phone", ramAmount = "8GB" };
         var response = await _client.PostAsJsonAsync("/api/devices", newDevice);
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
 
         var created = await response.Content.ReadFromJsonAsync<Device>();
         Assert.NotNull(created);
-        Assert.True(created!.DeviceID > 0, "DeviceID should be auto-assigned and > 0");
+        Assert.True(created!.deviceId > 0, "deviceId should be auto-assigned and > 0");
     }
 
     [Fact]
@@ -58,7 +58,7 @@ public class ApiIntegrationTests : IClassFixture<WebApplicationFactory<Program>>
     [Fact]
     public async Task Device_5_Delete_RemovesDevice()
     {
-        var newDevice = new Device { Name = "Delete Me", Manufacturer = "Test", Type = "Phone" };
+        var newDevice = new Device { name = "Delete Me", manufacturer = "Test", type = "Phone" };
         var postRes = await _client.PostAsJsonAsync("/api/devices", newDevice);
         var created = await postRes.Content.ReadFromJsonAsync<Device>();
 
@@ -86,13 +86,13 @@ public class ApiIntegrationTests : IClassFixture<WebApplicationFactory<Program>>
     [Fact]
     public async Task User_3_Post_CreatesNewUser()
     {
-        var newUser = new User { Name = "Test User", Role = "Admin", Location = "Cluj" };
+        var newUser = new User { name = "Test User", role = "Admin", location = "Cluj" };
         var response = await _client.PostAsJsonAsync("/api/users", newUser);
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
 
         var created = await response.Content.ReadFromJsonAsync<User>();
         Assert.NotNull(created);
-        Assert.True(created!.UserId > 0, "UserId should be auto-assigned and > 0");
+        Assert.True(created!.userId > 0, "userId should be auto-assigned and > 0");
     }
 
     [Fact]
@@ -100,7 +100,7 @@ public class ApiIntegrationTests : IClassFixture<WebApplicationFactory<Program>>
     {
         var users = await _client.GetFromJsonAsync<List<User>>("/api/users");
         var target = users![0];
-        target.Location = "Updated City";
+        target.location = "Updated City";
 
         var response = await _client.PutAsJsonAsync($"/api/users/{target.Id}", target);
         Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
@@ -109,7 +109,7 @@ public class ApiIntegrationTests : IClassFixture<WebApplicationFactory<Program>>
     [Fact]
     public async Task User_5_Delete_RemovesUser()
     {
-        var newUser = new User { Name = "Disposable", Role = "Guest", Location = "None" };
+        var newUser = new User { name = "Disposable", role = "Guest", location = "None" };
         var postRes = await _client.PostAsJsonAsync("/api/users", newUser);
         var created = await postRes.Content.ReadFromJsonAsync<User>();
 

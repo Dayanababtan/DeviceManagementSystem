@@ -1,0 +1,29 @@
+<div class="details-container" *ngIf="device; else loading">
+  <h2>Device Details: {{ device.name }}</h2>
+  <hr>
+  
+  <div class="detail-row">
+    <strong>ID:</strong> {{ device.deviceId }}
+  </div>
+  <div class="detail-row">
+    <strong>manufacturer:</strong> {{ device.manufacturer }}
+  </div>
+  <div class="detail-row">
+    <strong>type:</strong> {{ device.type }}
+  </div>
+  <div class="detail-row">
+    <strong>RAM:</strong> {{ device.ramAmount }}
+  </div>
+  <div class="detail-row">
+    <strong>Current User:</strong> {{ userName }}
+  </div>
+
+  <div class="actions">
+    <button [routerLink]="['/edit', device.deviceId]">Edit This Device</button>
+    <button routerLink="/">Back to List</button>
+  </div>
+</div>
+
+<ng-template #loading>
+  <p>Loading device details...</p>
+</ng-template>

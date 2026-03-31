@@ -19,7 +19,7 @@ public class DevicesController : ControllerBase
     public async Task<List<Device>> Get() => await _deviceService.GetAsync();
 
     [HttpGet("{id:length(24)}")]
-    public async Task<ActionResult<Device>> Get(string id)
+    public async Task<ActionResult<Device>> Get(int id)
     {
         var device = await _deviceService.GetAsync(id);
         if (device is null) return NotFound();
@@ -30,21 +30,21 @@ public class DevicesController : ControllerBase
     public async Task<IActionResult> Post(Device newDevice)
     {
         await _deviceService.CreateAsync(newDevice);
-        return CreatedAtAction(nameof(Get), new { id = newDevice.Id }, newDevice);
+        return CreatedAtAction(nameof(Get), new { id = newDevice.deviceId }, newDevice);
     }
 
     [HttpPut("{id:length(24)}")]
-    public async Task<IActionResult> Update(string id, Device updatedDevice)
+    public async Task<IActionResult> Update(int id, Device updatedDevice)
     {
         var device = await _deviceService.GetAsync(id);
         if (device is null) return NotFound();
-        updatedDevice.Id = device.Id;
+        updatedDevice.deviceId = device.deviceId;
         await _deviceService.UpdateAsync(id, updatedDevice);
         return NoContent();
     }
 
     [HttpDelete("{id:length(24)}")]
-    public async Task<IActionResult> Delete(string id)
+    public async Task<IActionResult> Delete(int id)
     {
         var device = await _deviceService.GetAsync(id);
         if (device is null) return NotFound();
