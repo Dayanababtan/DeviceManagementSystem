@@ -1,9 +1,20 @@
-<nav style="background: #333; color: white; padding: 1rem; display: flex; gap: 20px;">
-  <strong style="margin-right: auto;">Device Management System</strong>
-  <a routerLink="/" style="color: white; text-decoration: none;">View Devices</a>
-  <a routerLink="/add" style="color: white; text-decoration: none;">+ Add New</a>
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="nav-brand" routerLink="/">
+      <span class="brand-name">Device<span>Master</span></span>
+    </div>
+
+    <div class="nav-links">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+        View Inventory
+      </a>
+      <a routerLink="/add" routerLinkActive="active" class="nav-item btn-add">
+        <span class="plus-sign">+</span> Add New
+      </a>
+    </div>
+  </div>
 </nav>
 
-<div style="padding: 20px;">
+<main class="main-content">
   <router-outlet></router-outlet>
-</div>
+</main>

@@ -25,13 +25,12 @@ export class DeviceFormComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
   ) {
-    // Requirement #3 & #4: Validate all fields have values
     this.deviceForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       manufacturer: ['', Validators.required],
       type: ['', Validators.required],
       ramAmount: ['', Validators.required],
-      userId: ['', Validators.required] // Every device must have a User ID
+      userId: [null]
     });
   }
 
@@ -45,7 +44,7 @@ export class DeviceFormComponent implements OnInit {
       this.isEditMode = true;
       this.deviceId = +idParam;
       this.deviceService.getDevice(this.deviceId).subscribe(device => {
-        this.deviceForm.patchValue(device); // Fill form with existing data
+        this.deviceForm.patchValue(device); 
       });
     }
   }

@@ -1,29 +1,46 @@
-<div class="details-container" *ngIf="device; else loading">
-  <h2>Device Details: {{ device.name }}</h2>
-  <hr>
+<div class="details-wrapper" *ngIf="details$ | async as data; else loading">
   
-  <div class="detail-row">
-    <strong>ID:</strong> {{ device.deviceId }}
-  </div>
-  <div class="detail-row">
-    <strong>manufacturer:</strong> {{ device.manufacturer }}
-  </div>
-  <div class="detail-row">
-    <strong>type:</strong> {{ device.type }}
-  </div>
-  <div class="detail-row">
-    <strong>RAM:</strong> {{ device.ramAmount }}
-  </div>
-  <div class="detail-row">
-    <strong>Current User:</strong> {{ userName }}
-  </div>
+  <div class="details-card">
+    <div class="card-header">
+      <div class="header-info">
+        <span class="type-badge" [ngClass]="data.device.type?.toLowerCase()">
+          {{ data.device.type }}
+        </span>
+        <h1>{{ data.device.name }}</h1>
+        <p class="manufacturer-text">by {{ data.device.manufacturer }}</p>
+      </div>
+    </div>
 
-  <div class="actions">
-    <button [routerLink]="['/edit', device.deviceId]">Edit This Device</button>
-    <button routerLink="/">Back to List</button>
+    <div class="info-grid">
+      <div class="info-item">
+        <label>Device ID</label>
+        <p>#{{ data.device.deviceId }}</p>
+      </div>
+      <div class="info-item">
+        <label>Memory (RAM)</label>
+        <p>{{ data.device.ramAmount }} GB</p>
+      </div>
+      <div class="info-item full-width">
+        <label>Assigned Owner</label>
+        <div class="owner-box">
+          <div class="avatar">{{ data.userName.charAt(0) }}</div>
+          <p>{{ data.userName }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="details-footer">
+      <button class="btn btn-secondary" routerLink="/">← Back</button>
+      <button class="btn btn-primary" [routerLink]="['/edit', data.device.deviceId]">
+        ✎ Edit Device
+      </button>
+    </div>
   </div>
 </div>
 
 <ng-template #loading>
-  <p>Loading device details...</p>
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <p>Retrieving device specifications...</p>
+  </div>
 </ng-template>

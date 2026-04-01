@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { RouterModule } from '@angular/router'; 
 import { DeviceService } from '../../services/device.service';
-import { Device, User } from '../../models/device.model';
-import { forkJoin } from 'rxjs';
+import { forkJoin, BehaviorSubject, take } from 'rxjs';
 
 @Component({
   selector: 'app-device-list',
@@ -13,7 +12,9 @@ import { forkJoin } from 'rxjs';
   styleUrl: './device-list.css',
 })
 export class DeviceList implements OnInit {
-  devicesWithUsers: any[] = [];
+  private devicesSubject = new BehaviorSubject<any[]>([]);
+  
+  devicesWithUsers$ = this.devicesSubject.asObservable();
 
   constructor(private deviceService: DeviceService) {}
 
@@ -22,31 +23,26 @@ export class DeviceList implements OnInit {
   }
 
   loadDevices(): void {
-  forkJoin({
-    devices: this.deviceService.getDevices(),
-    users: this.deviceService.getUsers()
-  }).subscribe({
-    next: (result) => {
-      this.devicesWithUsers = result.devices.map(device => {
-        // MATCHING LOGIC: 
-        // Compare device.userId to user.userId (both lowercase)
-        const owner = result.users.find(u => u.userId === device.userId);
-        
-        return {
-          ...device,
-          // We create 'ownerName' to use in the HTML
-          ownerName: owner ? owner.name : 'No Owner' 
-        };
-      });
-    },
-    error: (err) => console.error('Error loading data', err)
-  });
-}
+    forkJoin({
+      devices: this.deviceService.getDevices(),
+      users: this.deviceService.getUsers()
+    }).pipe(take(1)).subscribe(result => {
+      const mappedData = result.devices.map(device => ({
+        ...device,
+        ownerName: result.users.find(u => u.userId == device.userId)?.name || 'Not Assigned Yet'
+      }));
+      
+      this.devicesSubject.next(mappedData);
+    });
+  }
 
   deleteDevice(id: number): void {
     if (confirm('Are you sure you want to delete this device?')) {
       this.deviceService.deleteDevice(id).subscribe(() => {
-        this.loadDevices();
+        const currentList = this.devicesSubject.value;
+        const updatedList = currentList.filter(dev => dev.deviceId !== id);
+        
+        this.devicesSubject.next(updatedList);
       });
     }
   }
