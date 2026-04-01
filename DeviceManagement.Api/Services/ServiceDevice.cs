@@ -29,8 +29,19 @@ public class DeviceService
         return device;
     }
 
-    public async Task UpdateAsync(int id, Device device) => 
+    public async Task UpdateAsync(int id, Device device)
+    {
+        var existingDevice = await GetAsync(id);
+        if (existingDevice is null)
+        {
+            throw new InvalidOperationException($"Device with id {id} not found.");
+        }
+
+        device.Id = existingDevice.Id;
+        device.deviceId = existingDevice.deviceId;
+
         await _devicesCollection.ReplaceOneAsync(x => x.deviceId == id, device);
+    }
 
     public async Task RemoveAsync(int id) => 
         await _devicesCollection.DeleteOneAsync(x => x.deviceId == id);
