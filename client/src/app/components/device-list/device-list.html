@@ -2,7 +2,7 @@
   <div class="header-actions">
     <h1>Device Inventory</h1>
     <button class="btn btn-primary" routerLink="/add">
-      <i class="plus-icon">+</i> Add New Device
+      <span class="plus-icon">+</span> Add New Device
     </button>
   </div>
 
@@ -19,30 +19,43 @@
       <tbody>
         <tr *ngFor="let dev of devicesWithUsers$ | async">
           <td class="font-bold">{{ dev.name }}</td>
+          
           <td>
-            <span class="user-badge" [class.unassigned]="dev.ownerName === 'Not Assigned Yet'">
+            <span class="user-badge" [class.unassigned]="dev.userId === null">
               {{ dev.ownerName }}
             </span>
           </td>
+
           <td>
-            <span class="type-tag" [ngClass]="dev.type?.toLowerCase()">
+            <span class="type-tag" [ngClass]="dev.type.toLowerCase()">
               {{ dev.type }}
             </span>
           </td>
+
           <td class="actions-cell">
-            <button class="btn-icon btn-details" [routerLink]="['/details', dev.deviceId]" title="Details">
+            <button class="btn-icon btn-details" [routerLink]="['/details', dev.deviceId]" title="View Details">
               👁
             </button>
-            <button class="btn-icon btn-edit" [routerLink]="['/edit', dev.deviceId]" title="Edit">
-              ✎
-            </button>
-            <button class="btn-icon btn-delete" (click)="deleteDevice(dev.deviceId)" title="Delete">
-              ×
-            </button>
+
+            <ng-container *ngIf="dev.userId === null || dev.userId === currentUserId">
+              <button class="btn-icon btn-edit" [routerLink]="['/edit', dev.deviceId]" title="Edit Device">
+                ✎
+              </button>
+              <button class="btn-icon btn-delete" (click)="deleteDevice(dev.deviceId)" title="Delete Device">
+                ×
+              </button>
+            </ng-container>
+
+            <span *ngIf="dev.userId !== null && dev.userId !== currentUserId" class="lock-indicator" title="Owned by another user">
+              🔒
+            </span>
           </td>
         </tr>
+
         <tr *ngIf="(devicesWithUsers$ | async)?.length === 0">
-          <td colspan="4" class="empty-message">No devices found. Click "Add New" to start.</td>
+          <td colspan="4" class="empty-message">
+            No devices found. Click "Add New Device" to get started.
+          </td>
         </tr>
       </tbody>
     </table>

@@ -4,6 +4,8 @@ export interface User {
   name: string;
   role: string;
   location: string;
+  email: string;
+  password: string;
 }
 
 export interface Device {
@@ -12,5 +14,5 @@ export interface Device {
   manufacturer: string;
   type: string;
   ramAmount: string;
-  userId: number; 
+  userId: number | null; 
 }
