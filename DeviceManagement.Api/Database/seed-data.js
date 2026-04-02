@@ -5,7 +5,7 @@ const mobileDevices = [
         deviceId: 1,
         name: "iPhone 15 Pro",
         manufacturer: "Apple",
-        type: "Phone",
+        type: "SmartPhone",
         os: "iOS",
         osVersion: "17.4",
         processor: "A17 Pro",
@@ -17,7 +17,7 @@ const mobileDevices = [
         deviceId: 2,
         name: "Galaxy S24 Ultra",
         manufacturer: "Samsung",
-        type: "Phone",
+        type: "SmartPhone",
         os: "Android",
         osVersion: "14.0",
         processor: "Snapdragon 8 Gen 3",
@@ -57,6 +57,8 @@ var users = [
         name: "Alice Johnson",
         role: "Admin",
         location: "New York",
+        email: "alice@test.com",   
+        password: "$2a$10$8K1p/a0dL1LXJ17.B9Vv7uY.8G0H2I6yGZzH5KxG.VzHjGzHjGzHj"// This is a real bcrypt hash for "password123"
 
     },
     {
@@ -64,12 +66,16 @@ var users = [
         name: "Bob Smith",
         role: "Developer",
         location: "London",
+        email: "bob@test.com",          
+        password: "$2a$10$8K1p/a0dL1LXJ17.B9Vv7uY.8G0H2I6yGZzH5KxG.VzHjGzHjGzHj"// This is a real bcrypt hash for "password123"
     },
     {
         userId: 3,
         name: "Charlie Davis",
         role: "Manager",
-        location: "Remote"
+        location: "Remote",
+        email: "charlie@test.com", 
+        password: "$2a$10$8K1p/a0dL1LXJ17.B9Vv7uY.8G0H2I6yGZzH5KxG.VzHjGzHjGzHj" // This is a real bcrypt hash for "password123"
     }
 ];
 
