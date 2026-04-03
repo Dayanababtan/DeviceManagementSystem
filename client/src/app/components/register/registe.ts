@@ -25,26 +25,28 @@ export class RegisterComponent {
       name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      location: ['Remote'], 
-      role: ['Developer'] 
+      location: ['', [Validators.required]],
+      role: ['', [Validators.required]]
     });
   }
 
   onSubmit(): void {
-    if (this.registerForm.invalid) return;
+  this.registerForm.markAllAsTouched();
 
-    this.loading = true;
-    this.errorMessage = '';
+  if (this.registerForm.invalid) return;
 
-    this.authService.register(this.registerForm.value).subscribe({
-      next: () => {
-        alert('Registration successful! Please login.');
-        this.router.navigate(['/login']);
-      },
-      error: (err) => {
-        this.errorMessage = err.error || 'Registration failed. Try again.';
-        this.loading = false;
-      }
-    });
-  }
+  this.loading = true;
+  this.errorMessage = '';
+
+  this.authService.register(this.registerForm.value).subscribe({
+    next: () => {
+      alert('Registration successful! Please login.');
+      this.router.navigate(['/login']);
+    },
+    error: (err) => {
+      this.errorMessage = err.error || 'Registration failed. Try again.';
+      this.loading = false;
+    }
+  });
+}
 }

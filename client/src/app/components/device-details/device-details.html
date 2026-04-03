@@ -1,4 +1,4 @@
-<div class="details-wrapper" *ngIf="details$ | async as data; else loading">
+<div class="details-wrapper" *ngIf="details$ | async as data; else loadingTemplate">
   
   <div class="details-card">
     <div class="card-header">
@@ -20,25 +20,58 @@
         <label>Memory (RAM)</label>
         <p>{{ data.device.ramAmount }} GB</p>
       </div>
+
       <div class="info-item full-width">
-        <label>Assigned Owner</label>
-        <div class="owner-box">
-          <div class="avatar">{{ data.userName.charAt(0) }}</div>
-          <p>{{ data.userName }}</p>
+        <label>Assigned Owner Details</label>
+        
+        <div class="owner-details-container" *ngIf="data.owner; else noOwnerTemplate">
+          <div class="owner-header">
+            <div class="avatar">{{ data.owner.name?.charAt(0) }}</div>
+            <div>
+              <p class="owner-name">{{ data.owner.name }}</p>
+              <p class="owner-role">{{ data.owner.role }}</p>
+            </div>
+          </div>
+          <div class="owner-meta">
+            <span><strong>Email:</strong> {{ data.owner.email }}</span>
+            <span><strong>Location:</strong> {{ data.owner.location }}</span>
+          </div>
         </div>
+
+        <ng-template #noOwnerTemplate>
+          <div class="not-assigned-box">
+            <p>Not Assigned Yet</p>
+          </div>
+        </ng-template>
       </div>
     </div>
 
     <div class="details-footer">
-      <button class="btn btn-secondary" routerLink="/">← Back</button>
-      <button class="btn btn-primary" [routerLink]="['/edit', data.device.deviceId]">
-        ✎ Edit Device
-      </button>
-    </div>
+  <button class="btn btn-secondary" routerLink="/">← Back</button>
+  
+  <button *ngIf="currentUserId === data.device.userId" 
+          class="btn btn-warning" 
+          (click)="unassignMe(data.device)">
+    Release Device
+  </button>
+
+  <button *ngIf="!data.device.userId || data.device.userId === 0" 
+          class="btn btn-success" 
+          (click)="assignToMe(data.device)">
+    Assign to Me
+  </button>
+
+  <button class="btn btn-primary" 
+          [routerLink]="['/edit', data.device.deviceId]"
+          [disabled]="currentUserId !== data.device.userId"
+          [title]="currentUserId !== data.device.userId ? 'Only the owner can edit this device' : ''">
+    ✎ Edit Device
+  </button>
+</div>
   </div>
 </div>
 
-<ng-template #loading>
+<ng-template #loadingTemplate>
   <div class="loading-state">
     <div class="spinner"></div>
     <p>Retrieving device specifications...</p>

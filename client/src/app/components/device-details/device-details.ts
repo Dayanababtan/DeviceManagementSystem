@@ -1,11 +1,11 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { DeviceService } from '../../services/device.service';
-import { AuthService } from '../../services/auth.service'; // Added
-import { Device } from '../../models/device.model';
+import { AuthService } from '../../services/auth.service';
+import { Device, User } from '../../models/device.model';
 import { Observable, forkJoin, of } from 'rxjs';
-import { map, catchError, switchMap } from 'rxjs/operators';
+import { map, catchError, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-device-details',
@@ -15,8 +15,10 @@ import { map, catchError, switchMap } from 'rxjs/operators';
   styleUrl: './device-details.css',
 })
 export class DeviceDetails implements OnInit {
-  details$!: Observable<{ device: Device; userName: string }>;
+  details$!: Observable<{ device: Device; owner: User | null }>;
   currentUserId: number | null = null;
+  // We keep this variable for logic, but we rename the template in HTML to avoid the crash
+  isLoadingData = true; 
 
   constructor(
     private route: ActivatedRoute,
@@ -32,6 +34,7 @@ export class DeviceDetails implements OnInit {
 
   loadData(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.isLoadingData = true;
 
     if (id) {
       this.details$ = forkJoin({
@@ -39,13 +42,12 @@ export class DeviceDetails implements OnInit {
         users: this.deviceService.getUsers()
       }).pipe(
         map(data => {
-          const owner = data.users.find(u => u.userId === data.device.userId);
-          return {
-            device: data.device,
-            userName: owner ? owner.name : 'Not Assigned Yet'
-          };
+          this.isLoadingData = false;
+          const owner = data.users.find(u => u.userId === data.device.userId) || null;
+          return { device: data.device, owner: owner };
         }),
         catchError(err => {
+          this.isLoadingData = false;
           console.error('Error loading details', err);
           this.router.navigate(['/']); 
           return of();
@@ -55,31 +57,24 @@ export class DeviceDetails implements OnInit {
   }
 
   assignToMe(device: Device): void {
-    if (!this.currentUserId) {
-      this.router.navigate(['/login']);
-      return;
-    }
-
+    if (!this.currentUserId) return;
     const updatedDevice = { ...device, userId: this.currentUserId };
     
     this.deviceService.updateDevice(device.deviceId, updatedDevice).subscribe({
       next: () => {
-        alert('Device successfully assigned to you!');
-        this.loadData(); // Refresh the UI
-      },
-      error: (err) => console.error('Assignment failed', err)
+        alert('Device assigned to you!');
+        this.loadData();
+      }
     });
   }
 
   unassignMe(device: Device): void {
-    const updatedDevice = { ...device, userId: null };
-
+    const updatedDevice = { ...device, userId: 0 }; // Or null, depending on your backend
     this.deviceService.updateDevice(device.deviceId, updatedDevice).subscribe({
       next: () => {
         alert('Device released.');
         this.loadData(); 
-      },
-      error: (err) => console.error('Unassignment failed', err)
+      }
     });
   }
 }
