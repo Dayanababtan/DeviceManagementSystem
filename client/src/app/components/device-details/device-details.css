@@ -243,3 +243,25 @@
   color: #6b7280;
   text-align: center;
 }
+
+.description-text {
+  color: #4b5563;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  background: #fdfdfd;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #f0f0f0;
+  margin: 0;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 20px;
+}
+
+.full-width {
+  grid-column: span 2;
+}

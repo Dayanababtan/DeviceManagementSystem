@@ -28,9 +28,22 @@
         <p>{{ data.device.ramAmount }} GB</p>
       </div>
 
+      <div class="info-item">
+        <label>Operating System</label>
+        <p>{{ data.device.os || 'N/A' }} {{ data.device.osVersion }}</p>
+      </div>
+      <div class="info-item">
+        <label>Processor</label>
+        <p>{{ data.device.processor || 'Unknown' }}</p>
+      </div>
+
+      <div class="info-item full-width" *ngIf="data.device.description">
+        <label>Manual Description</label>
+        <p class="description-text">{{ data.device.description }}</p>
+      </div>
+
       <div class="info-item full-width">
         <label>Assigned Owner Details</label>
-        
         <div class="owner-details-container" *ngIf="data.owner; else noOwnerTemplate">
           <div class="owner-header">
             <div class="avatar">{{ data.owner.name?.charAt(0) }}</div>

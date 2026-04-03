@@ -17,4 +17,7 @@ export interface Device {
   userId: number | null; 
   description:string;
   generatedDescription:string;
+  os: string;
+  osVersion: string;
+  processor: string;
 }

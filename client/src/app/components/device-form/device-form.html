@@ -36,6 +36,7 @@
             <option value="" disabled>Select Type</option>
             <option value="Smartphone">Smartphone</option>
             <option value="Tablet">Tablet</option>
+            <option value="Laptop">Laptop</option>
           </select>
         </div>
 
@@ -44,6 +45,33 @@
           <input type="text" formControlName="ramAmount" placeholder="e.g. 16">
         </div>
       </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Operating System</label>
+          <input type="text" formControlName="os" placeholder="e.g. iOS">
+        </div>
+
+        <div class="form-group">
+          <label>OS Version</label>
+          <input type="text" formControlName="osVersion" placeholder="e.g. 17.4">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Processor</label>
+        <input type="text" formControlName="processor" placeholder="e.g. A17 Pro Chip">
+      </div>
+
+      <div class="form-group">
+        <label>Manual Description / Notes</label>
+        <textarea 
+          formControlName="description" 
+          placeholder="Enter any additional notes about this hardware..."
+          rows="3">
+        </textarea>
+      </div>
+
       <div class="form-actions">
         <button type="button" class="btn btn-cancel" routerLink="/">Cancel</button>
         <button type="submit" class="btn btn-save" [disabled]="deviceForm.invalid">

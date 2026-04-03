@@ -30,13 +30,17 @@ export class DeviceFormComponent implements OnInit {
       manufacturer: ['', Validators.required],
       type: ['', Validators.required],
       ramAmount: ['', Validators.required],
+      // New Fields added here:
+      os: [''], 
+      osVersion: [''],
+      processor: [''],
+      description: [''], // This is the manual description
       userId: [null]
     });
   }
 
   ngOnInit(): void {
     this.deviceService.getUsers().subscribe(data => this.users = data);
-    
     this.deviceService.getDevices().subscribe(data => this.existingDevices = data);
 
     const idParam = this.route.snapshot.paramMap.get('id');
