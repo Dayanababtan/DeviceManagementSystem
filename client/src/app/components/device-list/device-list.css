@@ -27,8 +27,10 @@ h1 {
 .table-card {
   background: white;
   border-radius: 12px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  overflow: hidden; 
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
   border: 1px solid #e2e8f0;
 }
 
@@ -74,9 +76,18 @@ h1 {
   text-transform: uppercase;
 }
 
-.type-tag.smartphone { background: #e3f2fd; color: #1976d2; }
-.type-tag.tablet { background: #f3e5f5; color: #7b1fa2; }
-.type-tag.laptop { background: #e8f5e9; color: #388e3c; }
+.type-tag.smartphone {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+.type-tag.tablet {
+  background: #f3e5f5;
+  color: #7b1fa2;
+}
+.type-tag.laptop {
+  background: #e8f5e9;
+  color: #388e3c;
+}
 
 .btn {
   padding: 0.6rem 1.2rem;
@@ -116,9 +127,18 @@ h1 {
   transition: background 0.2s;
 }
 
-.btn-details:hover { background: #ebf8ff; color: #3182ce; }
-.btn-edit:hover { background: #fefcbf; color: #b7791f; }
-.btn-delete:hover { background: #fff5f5; color: #e53e3e; }
+.btn-details:hover {
+  background: #ebf8ff;
+  color: #3182ce;
+}
+.btn-edit:hover {
+  background: #fefcbf;
+  color: #b7791f;
+}
+.btn-delete:hover {
+  background: #fff5f5;
+  color: #e53e3e;
+}
 
 .empty-message {
   text-align: center;
@@ -152,4 +172,40 @@ h1 {
   background-color: #f1f5f9;
   color: #64748b;
   border: 1px dashed #cbd5e1;
+}
+
+.search-container {
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.search-box {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 12px 12px 12px 45px;
+  border: 2px solid #e5e7eb;
+  border-radius: 50px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.search-box input:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
 }

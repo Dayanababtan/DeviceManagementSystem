@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Device, User } from '../models/device.model';
 
@@ -31,5 +31,15 @@ export class DeviceService {
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.baseUrl}/users`);
+  }
+
+  searchDevices(query: string): Observable<Device[]> {
+    if (!query || !query.trim()) {
+      return this.getDevices();
+    }
+
+    const params = new HttpParams().set('q', query);
+
+    return this.http.get<Device[]>(`${this.baseUrl}/devices/search`, { params });
   }
 }

@@ -51,4 +51,11 @@ public class DevicesController : ControllerBase
         await _deviceService.RemoveAsync(id);
         return NoContent();
     }
+
+    [HttpGet("search")]
+    public async Task<ActionResult<List<Device>>> Search([FromQuery] string q)
+    {
+        var results = await _deviceService.SearchDevicesAsync(q);
+        return Ok(results);
+    }
 }
