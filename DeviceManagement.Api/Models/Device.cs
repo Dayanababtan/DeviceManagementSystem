@@ -20,18 +20,18 @@ public class Device
     public string manufacturer { get; set; } = string.Empty;
 
     public string type { get; set; } = string.Empty;
-    
+
     public string os { get; set; } = string.Empty;
-    
+
     public string osVersion { get; set; } = string.Empty;
-    
+
     public string processor { get; set; } = string.Empty;
-    
+
     public string ramAmount { get; set; } = string.Empty;
 
     public string description { get; set; } = string.Empty;
 
-    public int? userId { get; set; } 
+    public int? userId { get; set; }
 
     public string generatedDescription { get; set; } = string.Empty;
 }

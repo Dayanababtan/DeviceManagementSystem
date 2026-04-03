@@ -36,7 +36,7 @@
 }
 
 .brand-name span {
-  color: #4f46e5; 
+  color: #4f46e5;
 }
 
 .nav-links {
@@ -90,6 +90,6 @@
 
 @media (max-width: 640px) {
   .brand-name {
-    display: none; 
+    display: none;
   }
 }

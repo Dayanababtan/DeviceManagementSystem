@@ -17,12 +17,12 @@ public class User
     public string name { get; set; } = string.Empty;
 
     [Required]
-    public string role { get; set; } = string.Empty; 
+    public string role { get; set; } = string.Empty;
 
     [Required]
     public string location { get; set; } = string.Empty;
 
     public string email { get; set; } = string.Empty;
-    
+
     public string password { get; set; } = string.Empty;
 }

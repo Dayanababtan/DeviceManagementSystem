@@ -17,7 +17,7 @@ public class UserService
         _usersCollection = database.GetCollection<User>(config.GetSection("DatabaseSettings:UsersCollectionName").Value);
     }
 
-    public async Task<List<User>> GetAsync() => 
+    public async Task<List<User>> GetAsync() =>
         await _usersCollection.Find(_ => true).ToListAsync();
 
     public async Task<User?> GetAsync(int id) =>
@@ -35,11 +35,11 @@ public class UserService
 
     public async Task<User> CreateAsync(User newUser)
     {
-        if (!string.IsNullOrEmpty(newUser.password)) 
+        if (!string.IsNullOrEmpty(newUser.password))
         {
             newUser.password = BCrypt.Net.BCrypt.HashPassword(newUser.password);
         }
-        
+
         newUser.userId = await _sequence.GetNextSequenceAsync("userId");
         await _usersCollection.InsertOneAsync(newUser);
         return newUser;

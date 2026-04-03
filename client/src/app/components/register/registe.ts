@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './register.html',
-  styleUrl: './register.css'
+  styleUrl: './register.css',
 })
 export class RegisterComponent {
   registerForm: FormGroup;
@@ -19,34 +19,34 @@ export class RegisterComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
   ) {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       location: ['', [Validators.required]],
-      role: ['', [Validators.required]]
+      role: ['', [Validators.required]],
     });
   }
 
   onSubmit(): void {
-  this.registerForm.markAllAsTouched();
+    this.registerForm.markAllAsTouched();
 
-  if (this.registerForm.invalid) return;
+    if (this.registerForm.invalid) return;
 
-  this.loading = true;
-  this.errorMessage = '';
+    this.loading = true;
+    this.errorMessage = '';
 
-  this.authService.register(this.registerForm.value).subscribe({
-    next: () => {
-      alert('Registration successful! Please login.');
-      this.router.navigate(['/login']);
-    },
-    error: (err) => {
-      this.errorMessage = err.error || 'Registration failed. Try again.';
-      this.loading = false;
-    }
-  });
-}
+    this.authService.register(this.registerForm.value).subscribe({
+      next: () => {
+        alert('Registration successful! Please login.');
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        this.errorMessage = err.error || 'Registration failed. Try again.';
+        this.loading = false;
+      },
+    });
+  }
 }

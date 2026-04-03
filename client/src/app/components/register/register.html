@@ -8,25 +8,42 @@
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="auth-form">
       <div class="form-group">
         <label>Full Name</label>
-        <input type="text" formControlName="name" placeholder="Alice Johnson" 
-               [class.error]="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
+        <input
+          type="text"
+          formControlName="name"
+          placeholder="Alice Johnson"
+          [class.error]="registerForm.get('name')?.invalid && registerForm.get('name')?.touched"
+        />
       </div>
 
       <div class="form-group">
         <label>Email Address</label>
-        <input type="email" formControlName="email" placeholder="name@company.com"
-               [class.error]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="name@company.com"
+          [class.error]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+        />
       </div>
 
       <div class="form-group">
         <label>Location</label>
-        <input type="text" formControlName="location" placeholder="e.g. Remote, New York"
-               [class.error]="registerForm.get('location')?.invalid && registerForm.get('location')?.touched">
+        <input
+          type="text"
+          formControlName="location"
+          placeholder="e.g. Remote, New York"
+          [class.error]="
+            registerForm.get('location')?.invalid && registerForm.get('location')?.touched
+          "
+        />
       </div>
 
       <div class="form-group">
         <label>Role</label>
-        <select formControlName="role" [class.error]="registerForm.get('role')?.invalid && registerForm.get('role')?.touched">
+        <select
+          formControlName="role"
+          [class.error]="registerForm.get('role')?.invalid && registerForm.get('role')?.touched"
+        >
           <option value="" disabled selected>Select your role</option>
           <option value="Developer">Developer</option>
           <option value="Manager">Manager</option>
@@ -37,8 +54,14 @@
 
       <div class="form-group">
         <label>Password</label>
-        <input type="password" formControlName="password" placeholder="••••••••"
-               [class.error]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+        <input
+          type="password"
+          formControlName="password"
+          placeholder="••••••••"
+          [class.error]="
+            registerForm.get('password')?.invalid && registerForm.get('password')?.touched
+          "
+        />
         <small class="hint">Must be at least 6 characters</small>
       </div>
 
@@ -50,9 +73,7 @@
         {{ loading ? 'Creating Account...' : 'Register' }}
       </button>
 
-      <div class="auth-footer">
-        Already have an account? <a routerLink="/login">Login here</a>
-      </div>
+      <div class="auth-footer">Already have an account? <a routerLink="/login">Login here</a></div>
     </form>
   </div>
 </div>

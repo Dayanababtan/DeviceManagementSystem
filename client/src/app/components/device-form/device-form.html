@@ -8,25 +8,30 @@
     <form [formGroup]="deviceForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label>Device Name</label>
-        <input 
-          type="text" 
-          formControlName="name" 
+        <input
+          type="text"
+          formControlName="name"
           placeholder="e.g. iPhone 15 Pro"
           [class.is-invalid]="deviceForm.get('name')?.invalid && deviceForm.get('name')?.touched"
+        />
+        <div
+          class="error-msg"
+          *ngIf="deviceForm.get('name')?.invalid && deviceForm.get('name')?.touched"
         >
-        <div class="error-msg" *ngIf="deviceForm.get('name')?.invalid && deviceForm.get('name')?.touched">
           Device name is required (min. 2 characters).
         </div>
       </div>
 
       <div class="form-group">
         <label>Manufacturer</label>
-        <input 
-          type="text" 
-          formControlName="manufacturer" 
+        <input
+          type="text"
+          formControlName="manufacturer"
           placeholder="e.g. Apple"
-          [class.is-invalid]="deviceForm.get('manufacturer')?.invalid && deviceForm.get('manufacturer')?.touched"
-        >
+          [class.is-invalid]="
+            deviceForm.get('manufacturer')?.invalid && deviceForm.get('manufacturer')?.touched
+          "
+        />
       </div>
 
       <div class="form-row">
@@ -42,33 +47,34 @@
 
         <div class="form-group">
           <label>RAM (GB)</label>
-          <input type="text" formControlName="ramAmount" placeholder="e.g. 16">
+          <input type="text" formControlName="ramAmount" placeholder="e.g. 16" />
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group">
           <label>Operating System</label>
-          <input type="text" formControlName="os" placeholder="e.g. iOS">
+          <input type="text" formControlName="os" placeholder="e.g. iOS" />
         </div>
 
         <div class="form-group">
           <label>OS Version</label>
-          <input type="text" formControlName="osVersion" placeholder="e.g. 17.4">
+          <input type="text" formControlName="osVersion" placeholder="e.g. 17.4" />
         </div>
       </div>
 
       <div class="form-group">
         <label>Processor</label>
-        <input type="text" formControlName="processor" placeholder="e.g. A17 Pro Chip">
+        <input type="text" formControlName="processor" placeholder="e.g. A17 Pro Chip" />
       </div>
 
       <div class="form-group">
         <label>Manual Description / Notes</label>
-        <textarea 
-          formControlName="description" 
+        <textarea
+          formControlName="description"
           placeholder="Enter any additional notes about this hardware..."
-          rows="3">
+          rows="3"
+        >
         </textarea>
       </div>
 

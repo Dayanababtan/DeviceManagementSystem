@@ -1,6 +1,10 @@
 :host {
   display: block;
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family:
+    'Inter',
+    system-ui,
+    -apple-system,
+    sans-serif;
   background-color: #f9fafb;
   min-height: calc(100vh - 80px);
   padding: 40px 20px;
@@ -15,7 +19,9 @@
   background: #ffffff;
   padding: 32px;
   border-radius: 16px;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
   border: 1px solid #f3f4f6;
 }
 
@@ -53,7 +59,8 @@ label {
   margin-bottom: 6px;
 }
 
-input, select {
+input,
+select {
   width: 100%;
   padding: 10px 12px;
   border: 1px solid #d1d5db;
@@ -64,13 +71,15 @@ input, select {
   box-sizing: border-box;
 }
 
-input:focus, select:focus {
+input:focus,
+select:focus {
   outline: none;
   border-color: #4f46e5;
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
 }
 
-input.is-invalid, select.is-invalid {
+input.is-invalid,
+select.is-invalid {
   border-color: #ef4444;
 }
 

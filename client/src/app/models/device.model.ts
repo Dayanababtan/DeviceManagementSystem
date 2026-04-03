@@ -14,9 +14,9 @@ export interface Device {
   manufacturer: string;
   type: string;
   ramAmount: string;
-  userId: number | null; 
-  description:string;
-  generatedDescription:string;
+  userId: number | null;
+  description: string;
+  generatedDescription: string;
   os: string;
   osVersion: string;
   processor: string;

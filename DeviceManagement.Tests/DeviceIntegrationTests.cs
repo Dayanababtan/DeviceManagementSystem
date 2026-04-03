@@ -33,30 +33,31 @@ public class ApiIntegrationTests : IClassFixture<WebApplicationFactory<Program>>
     }
 
     [Fact]
-public async Task Device_3_Post_CreatesNewDevice()
-{
-    var newDevice = new Device { 
-        name = "Test iPhone", 
-        manufacturer = "Apple", 
-        type = "Smartphone", 
-        ramAmount = "8" 
-    };
+    public async Task Device_3_Post_CreatesNewDevice()
+    {
+        var newDevice = new Device
+        {
+            name = "Test iPhone",
+            manufacturer = "Apple",
+            type = "Smartphone",
+            ramAmount = "8"
+        };
 
-    var response = await _client.PostAsJsonAsync("/api/devices", newDevice);
+        var response = await _client.PostAsJsonAsync("/api/devices", newDevice);
 
-    Assert.Equal(HttpStatusCode.Created, response.StatusCode); 
+        Assert.Equal(HttpStatusCode.Created, response.StatusCode);
 
-    var created = await response.Content.ReadFromJsonAsync<Device>();
-    Assert.NotNull(created);
-    Assert.True(created!.deviceId > 0, "deviceId should be auto-assigned and > 0");
-}
+        var created = await response.Content.ReadFromJsonAsync<Device>();
+        Assert.NotNull(created);
+        Assert.True(created!.deviceId > 0, "deviceId should be auto-assigned and > 0");
+    }
 
     [Fact]
     public async Task Device_4_Put_UpdatesDevice()
     {
         var devices = await _client.GetFromJsonAsync<List<Device>>("/api/devices");
         var target = devices![0];
-        
+
         target.manufacturer = "Updated Manufacturer";
 
         var response = await _client.PutAsJsonAsync($"/api/devices/{target.deviceId}", target);
@@ -107,7 +108,7 @@ public async Task Device_3_Post_CreatesNewDevice()
     {
         var newUser = new User { name = "Disposable", role = "Guest", location = "None", email = "test@delete.com", password = "password" };
         var postRes = await _client.PostAsJsonAsync("/api/auth/register", newUser); // Use auth/register to avoid validation issues
-        
+
         var users = await _client.GetFromJsonAsync<List<User>>("/api/users");
         var created = users!.Last();
         var response = await _client.DeleteAsync($"/api/users/{created!.userId}");

@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(); 
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddHttpClient<AIService>();
 builder.Services.AddSingleton<SequenceService>();
@@ -27,7 +27,7 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 app.UseCors("AllowAngular");
-app.MapControllers(); 
+app.MapControllers();
 
 app.Run();
 

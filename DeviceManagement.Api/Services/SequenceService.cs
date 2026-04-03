@@ -25,7 +25,8 @@ public class SequenceService
     }
 }
 
-public class Counter {
+public class Counter
+{
     [BsonElement("Id")]
     public string Id { get; set; } = string.Empty;
     public int Value { get; set; }

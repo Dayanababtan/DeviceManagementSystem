@@ -1,4 +1,5 @@
 namespace DeviceManagement.Api.Services;
+
 using DeviceManagement.Api.Models;
 using System.Net.Http.Json;
 
@@ -11,11 +12,11 @@ public class AIService
     {
         _httpClient = httpClient;
         _apiKey = config["AI:ApiKey"] ?? "";
-        
+
         // Groq uses Bearer tokens exactly like OpenAI
         if (!string.IsNullOrEmpty(_apiKey))
         {
-            _httpClient.DefaultRequestHeaders.Authorization = 
+            _httpClient.DefaultRequestHeaders.Authorization =
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _apiKey);
         }
     }

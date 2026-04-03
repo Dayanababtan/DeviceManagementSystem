@@ -1,5 +1,4 @@
 <div class="details-wrapper" *ngIf="details$ | async as data; else loadingTemplate">
-  
   <div class="details-card">
     <div class="card-header">
       <div class="header-info">
@@ -12,9 +11,7 @@
     </div>
 
     <div class="ai-summary-container" *ngIf="data.device.generatedDescription">
-      <div class="ai-badge">
-        <span class="sparkle-icon">✨</span> AI Summary
-      </div>
+      <div class="ai-badge"><span class="sparkle-icon">✨</span> AI Summary</div>
       <p class="ai-text">"{{ data.device.generatedDescription }}"</p>
     </div>
 
@@ -68,23 +65,29 @@
 
     <div class="details-footer">
       <button class="btn btn-secondary" routerLink="/">← Back</button>
-      
-      <button *ngIf="currentUserId === data.device.userId" 
-              class="btn btn-warning" 
-              (click)="unassignMe(data.device)">
+
+      <button
+        *ngIf="currentUserId === data.device.userId"
+        class="btn btn-warning"
+        (click)="unassignMe(data.device)"
+      >
         Release Device
       </button>
 
-      <button *ngIf="!data.device.userId || data.device.userId === 0" 
-              class="btn btn-success" 
-              (click)="assignToMe(data.device)">
+      <button
+        *ngIf="!data.device.userId || data.device.userId === 0"
+        class="btn btn-success"
+        (click)="assignToMe(data.device)"
+      >
         Assign to Me
       </button>
 
-      <button class="btn btn-primary" 
-              [routerLink]="['/edit', data.device.deviceId]"
-              [disabled]="currentUserId !== data.device.userId"
-              [title]="currentUserId !== data.device.userId ? 'Only the owner can edit this device' : ''">
+      <button
+        class="btn btn-primary"
+        [routerLink]="['/edit', data.device.deviceId]"
+        [disabled]="currentUserId !== data.device.userId"
+        [title]="currentUserId !== data.device.userId ? 'Only the owner can edit this device' : ''"
+      >
         ✎ Edit Device
       </button>
     </div>

@@ -18,13 +18,13 @@ export class DeviceDetails implements OnInit {
   details$!: Observable<{ device: Device; owner: User | null }>;
   currentUserId: number | null = null;
   // We keep this variable for logic, but we rename the template in HTML to avoid the crash
-  isLoadingData = true; 
+  isLoadingData = true;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private deviceService: DeviceService,
-    private authService: AuthService 
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
@@ -39,19 +39,19 @@ export class DeviceDetails implements OnInit {
     if (id) {
       this.details$ = forkJoin({
         device: this.deviceService.getDevice(id),
-        users: this.deviceService.getUsers()
+        users: this.deviceService.getUsers(),
       }).pipe(
-        map(data => {
+        map((data) => {
           this.isLoadingData = false;
-          const owner = data.users.find(u => u.userId === data.device.userId) || null;
+          const owner = data.users.find((u) => u.userId === data.device.userId) || null;
           return { device: data.device, owner: owner };
         }),
-        catchError(err => {
+        catchError((err) => {
           this.isLoadingData = false;
           console.error('Error loading details', err);
-          this.router.navigate(['/']); 
+          this.router.navigate(['/']);
           return of();
-        })
+        }),
       );
     }
   }
@@ -59,12 +59,12 @@ export class DeviceDetails implements OnInit {
   assignToMe(device: Device): void {
     if (!this.currentUserId) return;
     const updatedDevice = { ...device, userId: this.currentUserId };
-    
+
     this.deviceService.updateDevice(device.deviceId, updatedDevice).subscribe({
       next: () => {
         alert('Device assigned to you!');
         this.loadData();
-      }
+      },
     });
   }
 
@@ -73,8 +73,8 @@ export class DeviceDetails implements OnInit {
     this.deviceService.updateDevice(device.deviceId, updatedDevice).subscribe({
       next: () => {
         alert('Device released.');
-        this.loadData(); 
-      }
+        this.loadData();
+      },
     });
   }
 }

@@ -3,6 +3,9 @@
 .vs/
 *.user
 *.suo
+.history/
+.idea/
+*.log
 
 # .NET Backend
 **/bin/

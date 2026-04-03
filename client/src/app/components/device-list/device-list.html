@@ -5,6 +5,17 @@
       <span class="plus-icon">+</span> Add New Device
     </button>
   </div>
+  <div class="search-container">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input
+        #searchBox
+        type="text"
+        placeholder="Search by name, manufacturer, RAM or processor..."
+        (input)="search(searchBox.value)"
+      />
+    </div>
+  </div>
 
   <div class="table-card">
     <table class="custom-table">
@@ -19,7 +30,7 @@
       <tbody>
         <tr *ngFor="let dev of devicesWithUsers$ | async">
           <td class="font-bold">{{ dev.name }}</td>
-          
+
           <td>
             <span class="user-badge" [class.unassigned]="dev.userId === null">
               {{ dev.ownerName }}
@@ -33,20 +44,36 @@
           </td>
 
           <td class="actions-cell">
-            <button class="btn-icon btn-details" [routerLink]="['/details', dev.deviceId]" title="View Details">
+            <button
+              class="btn-icon btn-details"
+              [routerLink]="['/details', dev.deviceId]"
+              title="View Details"
+            >
               👁
             </button>
 
             <ng-container *ngIf="dev.userId === null || dev.userId === currentUserId">
-              <button class="btn-icon btn-edit" [routerLink]="['/edit', dev.deviceId]" title="Edit Device">
+              <button
+                class="btn-icon btn-edit"
+                [routerLink]="['/edit', dev.deviceId]"
+                title="Edit Device"
+              >
                 ✎
               </button>
-              <button class="btn-icon btn-delete" (click)="deleteDevice(dev.deviceId)" title="Delete Device">
+              <button
+                class="btn-icon btn-delete"
+                (click)="deleteDevice(dev.deviceId)"
+                title="Delete Device"
+              >
                 ×
               </button>
             </ng-container>
 
-            <span *ngIf="dev.userId !== null && dev.userId !== currentUserId" class="lock-indicator" title="Owned by another user">
+            <span
+              *ngIf="dev.userId !== null && dev.userId !== currentUserId"
+              class="lock-indicator"
+              title="Owned by another user"
+            >
               🔒
             </span>
           </td>
