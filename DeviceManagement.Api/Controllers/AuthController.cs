@@ -21,25 +21,22 @@ public class AuthController : ControllerBase
         return Ok(new { message = "Registration successful" });
     }
 
-    [HttpPost("login")]
+   [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
         var user = await _userService.GetByEmailAsync(request.Email);
-        
-        if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.password))
-        {
-            return Unauthorized("Invalid email or password.");
-        }
+    
+        if (user == null) return Unauthorized("User not found");
 
-        return Ok(new { 
-            userId = user.userId, 
-            name = user.name, 
-            email = user.email 
-        });
+        bool isValid = BCrypt.Net.BCrypt.Verify(request.Password, user.password);
+    
+        if (!isValid) return Unauthorized("Wrong password");
+
+    
+        return Ok(new { userId = user.userId, name = user.name });
     }
-}
-
 public class LoginRequest {
     public string Email { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
+}
 }

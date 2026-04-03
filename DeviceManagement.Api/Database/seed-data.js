@@ -93,5 +93,5 @@ if (db.Users.countDocuments({}) === 0) {
     print('Users collection already has data. Skipping seed to prevent duplicates.');
 }
 
-db.Counters.updateOne({ Id: "userId" }, { $set: { Id: "userId", Value: 3 } }, { upsert: true });
-db.Counters.updateOne({ Id: "deviceId" }, { $set: { Id: "deviceId", Value: 4 } }, { upsert: true });
+db.Counters.updateOne({ _id: "userId" }, { $set: { Value: 3 } }, { upsert: true });
+db.Counters.updateOne({ _id: "deviceId" }, { $set: { Value: 4 } }, { upsert: true });
