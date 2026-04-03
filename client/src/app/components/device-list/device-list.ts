@@ -15,8 +15,6 @@ import {
   startWith,
   map,
 } from 'rxjs';
-import { Device } from '../../models/device.model';
-import { start } from 'node:repl';
 
 @Component({
   selector: 'app-device-list',

@@ -30,11 +30,10 @@ export class DeviceFormComponent implements OnInit {
       manufacturer: ['', Validators.required],
       type: ['', Validators.required],
       ramAmount: ['', Validators.required],
-      // New Fields added here:
       os: [''],
       osVersion: [''],
       processor: [''],
-      description: [''], // This is the manual description
+      description: [''], 
       userId: [null],
     });
   }

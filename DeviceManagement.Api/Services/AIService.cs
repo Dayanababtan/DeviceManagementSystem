@@ -13,7 +13,6 @@ public class AIService
         _httpClient = httpClient;
         _apiKey = config["AI:ApiKey"] ?? "";
 
-        // Groq uses Bearer tokens exactly like OpenAI
         if (!string.IsNullOrEmpty(_apiKey))
         {
             _httpClient.DefaultRequestHeaders.Authorization =
@@ -25,7 +24,6 @@ public class AIService
     {
         if (string.IsNullOrEmpty(_apiKey)) return "Groq API Key missing.";
 
-        // Groq Endpoint
         var url = "https://api.groq.com/openai/v1/chat/completions";
 
         var prompt = $"Generate a concise, one-sentence professional description for this device: " +
@@ -35,7 +33,7 @@ public class AIService
 
         var requestBody = new
         {
-            model = "llama-3.3-70b-versatile", // This is a very fast, free model on Groq
+            model = "llama-3.3-70b-versatile", 
             messages = new[] { new { role = "user", content = prompt } },
             max_tokens = 60
         };
@@ -59,7 +57,6 @@ public class AIService
         }
     }
 
-    // Response mapping classes
     private class GroqResponse
     {
         public Choice[]? Choices { get; set; }
