@@ -38,7 +38,7 @@ public async Task Device_3_Post_CreatesNewDevice()
     var newDevice = new Device { 
         name = "Test iPhone", 
         manufacturer = "Apple", 
-        type = "Phone", 
+        type = "Smartphone", 
         ramAmount = "8" 
     };
 
@@ -66,7 +66,7 @@ public async Task Device_3_Post_CreatesNewDevice()
     [Fact]
     public async Task Device_5_Delete_RemovesDevice()
     {
-        var newDevice = new Device { name = "Delete Me", manufacturer = "Test", type = "Phone" };
+        var newDevice = new Device { name = "Delete Me", manufacturer = "Test", type = "SmartPhone" };
         var postRes = await _client.PostAsJsonAsync("/api/devices", newDevice);
         var created = await postRes.Content.ReadFromJsonAsync<Device>();
 

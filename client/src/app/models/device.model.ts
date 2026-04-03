@@ -15,4 +15,6 @@ export interface Device {
   type: string;
   ramAmount: string;
   userId: number | null; 
+  description:string;
+  generatedDescription:string;
 }

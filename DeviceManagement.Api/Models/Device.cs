@@ -32,4 +32,6 @@ public class Device
     public string description { get; set; } = string.Empty;
 
     public int? userId { get; set; } 
+
+    public string generatedDescription { get; set; } = string.Empty;
 }

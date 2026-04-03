@@ -7,10 +7,12 @@ public class DeviceService
 {
     private readonly IMongoCollection<Device> _devicesCollection;
     private readonly SequenceService _sequence;
+    private readonly AIService _aiService;
 
-    public DeviceService(IConfiguration config, SequenceService sequence)
+    public DeviceService(IConfiguration config, SequenceService sequence, AIService aiService)
     {
         _sequence = sequence;
+        _aiService = aiService;
         var client = new MongoClient(config["DatabaseSettings:ConnectionString"]);
         var database = client.GetDatabase(config["DatabaseSettings:DatabaseName"]);
         _devicesCollection = database.GetCollection<Device>(config["DatabaseSettings:DevicesCollectionName"]);
@@ -24,6 +26,11 @@ public class DeviceService
 
     public async Task<Device> CreateAsync(Device device)
     {
+        try {
+            device.generatedDescription = await _aiService.GenerateDescriptionAsync(device);
+        } catch {
+            device.generatedDescription = "A reliable device from " + device.manufacturer;
+        }
         device.deviceId = await _sequence.GetNextSequenceAsync("deviceId");
         await _devicesCollection.InsertOneAsync(device);
         return device;
