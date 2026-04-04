@@ -2,6 +2,8 @@
 
 Device management system ia a full-stack application which keeps track of all the mobile devices the company owns, all the details of the device, location, and who is using it at the moment. It uses LLMs (Large Language Models) to automatically generate professional device descriptions and a Weighted Scoring Algorithm for high-relevance search.
 
+The AI-generated description is automatically generated when a new device is created. The dummy data from the database do not have that AI Summary because they aren't made using the POST API. 
+
 Tech Stack
 
 Frontend: Angular 17+ (Standalone Components, RxJS, Reactive Forms)
@@ -49,6 +51,6 @@ An API Key from Groq
     npm install
 
     npm run start
-    
+
 
     The app will be available at http://localhost:4200.
